@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  * This class supplies a utility method to reverse the entries in a linked list.
@@ -12,6 +13,13 @@ public class ListUtil
     */
     public static void reverse(LinkedList<String> strings)
     {
-        ...
+        ListIterator<String> iterator = strings.listIterator();
+        LinkedList<String> newlist = new LinkedList<>(); ListIterator<String> iterator2 = newlist.listIterator();
+        while(iterator.hasNext()) {iterator.next();}
+        while(iterator.hasPrevious()) {
+            newlist.add(iterator.previous());
+        }
+        strings = newlist;
+        
     }
 }

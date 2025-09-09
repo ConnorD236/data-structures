@@ -46,6 +46,10 @@ public class SudokuSolver {
             0 1 2
             3 4 5
             6 7 8
+        //r=0, c=0, through r+2 and c+2, add 3 to r and then c
+        //for(int r=0; r<9; r+=3)
+            for(int c=0; c<9; c+=3)
+                Set<
          */
         // ...
 

@@ -12,14 +12,14 @@ public class FirstLetterMap
 {
     public static void main(String[] args)
     {
-        String filename = "src/test1.txt";
+        String filename = "test1.txt";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
-
+            
             // Create your map here
-            ...
-
+            Map<Character, Set<String>> map = new HashMap<>();
+            
             while (in.hasNext())
             {
                 String word = clean(in.next());
@@ -27,13 +27,19 @@ public class FirstLetterMap
 
                 // Update the map here
                 // Use the Java 8 merge method
-                . . .
+                Set<String> s = new HashSet<>();
+                s.add(word);
+                map.merge(c, s, (oldSet, newSet) -> {oldSet.addAll(newSet); return oldSet;});
 
             }
 
             // Print the map here in this form
             // a: [a, able, aardvark]
-            . . .
+            for(Character c: map.keySet())
+            {
+                System.out.println(c+" : "+map.get(c));
+            }
+            
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);

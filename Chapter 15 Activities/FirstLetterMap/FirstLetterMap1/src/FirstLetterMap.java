@@ -30,6 +30,7 @@ public class FirstLetterMap
                 Set<String> s = new HashSet<>();
                 s.add(word);
                 map.merge(c, s, (oldSet, newSet) -> {oldSet.addAll(newSet); return oldSet;});
+                //Mr. Miller -> merge(c, new TreeSet<>(Arrays.asList(word)), (oldValue, newValue) -> {oldValue.add(word); return oldValue; //becomes new value through return})
 
             }
 

@@ -12,13 +12,13 @@ public class StringLengthMap2
 {
     public static void main(String[] args)
     {
-        String filename = "src/test1.txt";
+        String filename = "test1.txt";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
 
             // Create your map here
-            
+            Map<Integer, String> map = new TreeMap<>();
 
             while (in.hasNext())
             {
@@ -28,12 +28,16 @@ public class StringLengthMap2
                 // Update the map here
                 // Use the Java 8 merge() method
                 
-
-
+                map.merge(len, word, (existing, newWord) -> existing + ", " + newWord);
             }
 
             // Print the strings, in increasing order of their length
             // Use this format: 1: i, a, i
+            for (Integer key: map.keySet())
+            {
+                System.out.println(key+" : "+map.get(key));
+            }
+            
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);

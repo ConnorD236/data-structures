@@ -37,6 +37,8 @@ public class Driveway
         // Complete this method
         driveway.push(licensePlate);
 
+        print();
+
 
     }
 
@@ -49,11 +51,17 @@ public class Driveway
     {
         // Complete this method
         licensePlate = Math.abs(licensePlate);
-        while(driveway.peek() != licensePlate)
+        while(driveway.peek() != licensePlate) {
           street.add(driveway.pop());
+          print();
+        }
         driveway.pop();
-        while(street.size() > 0)
+        while(street.size() > 0) {
           driveway.add(street.pop());
+          print();
+        }
+
+        print();
     }
 
     /**
@@ -63,25 +71,14 @@ public class Driveway
     {
         System.out.println("In Driveway, starting at first in (one license plate per line):");
         // Print the cars in the driveway here
-        Stack<Integer> temporary = new Stack<>();
-        while(driveway.size() > 0)
-          temporary.push(driveway.pop());
-        while(temporary.size() > 0) {
-          System.out.println(temporary.peek());
-          driveway.push(temporary.pop());
-        }
+        for(Integer l: driveway)
+          System.out.println(l);
 
         System.out.println("In Street, starting at first in (one license plate per line):");
         // Print the cars in the street here
-        if(street.size() == 0)
-          System.out.println("Nothing in the street!");
-        else {
-          while(street.size() > 0)
-            temporary.push(street.pop());
-          while(temporary.size() > 0) {
-            System.out.println(temporary.peek());
-            street.push(temporary.pop());
-        }
-      }
+        for(Integer l: street)
+          System.out.println(l);
+
+        System.out.println();
     }
 }

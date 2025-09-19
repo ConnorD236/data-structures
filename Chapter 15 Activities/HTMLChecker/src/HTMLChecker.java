@@ -17,12 +17,25 @@ public class HTMLChecker
 {
     public static void main(String[] args)
     {
-        String filename = "src/TagSample1.html";
-
+        String filename = "C:\\Users\\cjdoyle\\Documents\\GitHub\\data-structures/Chapter 15 Activities/HTMLChecker/src/TagSample1.html";
+        Stack<String> tags = new Stack<>();
         try (Scanner in = new Scanner(new File(filename)))
         {
             // Your code goes here
-            . . .
+            //Loop through all tags
+            while(in.hasNext()) {
+                //Testing if closed tag. If so, remove open tag. If not, add to be removed later.
+                String tag = in.next();
+                String tagletter1; String tagletter2;
+                if(tag.substring(1,2).equals("/")) {
+                    if(tags.size() == 0) {System.out.println("Invalid tags!"); return;}
+                        
+                }
+                else
+                    tags.push(tag);
+
+            }
+
 
 
         } catch (FileNotFoundException e)

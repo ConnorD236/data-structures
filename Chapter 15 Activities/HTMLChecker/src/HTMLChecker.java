@@ -18,23 +18,37 @@ public class HTMLChecker
     public static void main(String[] args)
     {
         String filename = "C:\\Users\\cjdoyle\\Documents\\GitHub\\data-structures/Chapter 15 Activities/HTMLChecker/src/TagSample1.html";
+        //String filename = "C:\\Users\\cjdoyle\\Documents\\GitHub\\data-structures/Chapter 15 Activities/HTMLChecker/src/TagSample2.html";
+        //String filename = "C:\\Users\\cjdoyle\\Documents\\GitHub\\data-structures/Chapter 15 Activities/HTMLChecker/src/TagSample3.html";
         Stack<String> tags = new Stack<>();
         try (Scanner in = new Scanner(new File(filename)))
         {
             // Your code goes here
             //Loop through all tags
             while(in.hasNext()) {
-                //Testing if closed tag. If so, remove open tag. If not, add to be removed later.
+                
                 String tag = in.next();
-                String tagletter1; String tagletter2;
-                if(tag.substring(1,2).equals("/")) {
-                    if(tags.size() == 0) {System.out.println("Invalid tags!"); return;}
+
+                if(tag.substring(1,2).equals("/")) //closed tag test
+                {
+                    if(tags.size() == 0 || !(tags.peek().substring(1,2).equals(tag.substring(2,3)))) // if empty stack, or the letters of the tags aren't the same
+                        {System.out.println("Invalid tags!");                                                                               // tell user the tags are wrong
+                        System.out.println("Tags stack currently - "+tags.toString()+" while trying to process "+tag);
+                        return;}
+                    else if(tags.peek().substring(1,2).equals(tag.substring(2,3)))  // else if tag letters are the same, remove the tag
+                        tags.pop();
+                    else
+                        System.out.println("what did you code wrong");
                         
                 }
                 else
                     tags.push(tag);
-
             }
+
+            
+                // success output
+                System.out.println("If you see this, the HTML tags work!");
+                System.out.println("Tags stack - "+tags.toString());
 
 
 

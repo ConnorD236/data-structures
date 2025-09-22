@@ -43,6 +43,13 @@ public class Grid
             
             }
         }
+
+        System.out.println("\nArray alone:\n");
+        for(int r=0; r<10; r++) {
+            for(int c=0; c<10; c++)
+                System.out.print(pixels[r][c]+" ");
+            System.out.println();
+        }
     }
 
     @Override

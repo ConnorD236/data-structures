@@ -8,12 +8,18 @@ import java.util.NoSuchElementException;
 */
 public class LinkedList
 {
+    // first refers to the first node in the list
+    // If the list is empty, first will be null
+    private Node first;
 
-
+    
     /**
         Constructs an empty linked list.
     */
-
+    public LinkedList()
+    {
+        this.first = null;
+    }
 
 
 
@@ -21,7 +27,13 @@ public class LinkedList
         Returns the first element in the linked list.
         @return the first element in the linked list
     */
-
+    public Object getFirst()
+    {
+        if(this.first == null)
+            throw new NoSuchElementException(); //creates exception object (like return (*create new object*); )
+        else
+            return this.first.data;
+    }
 
 
 
@@ -52,7 +64,13 @@ public class LinkedList
 
 
 
-    //Class Node
+    //Class Node - when you make a class in a class, it acts like a private class, only being accessible to the outer class.
+    // Node is static because it does Not need to access anything in LinkedList - use static classes when you just want to store information (the object that is the class will store the information)
+    static class Node
+    {
+        public Node next;
+        public Object data;
+    }
 
 
     class LinkedListIterator //implements ListIterator

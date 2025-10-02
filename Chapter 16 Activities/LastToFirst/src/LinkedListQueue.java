@@ -22,12 +22,7 @@ public class LinkedListQueue
     */
     public void lastToFirst()
     {
-        . . .
-
-
-
-
-
+        
     }
 
     /**

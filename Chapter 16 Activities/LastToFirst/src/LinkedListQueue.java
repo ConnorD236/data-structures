@@ -22,19 +22,22 @@ public class LinkedListQueue
     */
     public void lastToFirst()
     {
-        //t d h s j
-        //h       t
-        Node originalHead = head;
-        Node originalTail = tail;
+        //e a b c d e
+        //h       h
+        Node originalHead = head;//tom
+        Node originalTail = tail;//harry
         head = originalTail;
         head.next = originalHead;
-
+        //tom diana harry    sarah john
+        //h         h
+        
         Node currentNode = head;
-        while(head.next != originalTail)
+        while(currentNode.next != originalTail)
             currentNode = currentNode.next;
-
         currentNode.next = null;
-    }
+        tail = currentNode;
+
+            }
 
     /**
         Checks whether this queue is empty.

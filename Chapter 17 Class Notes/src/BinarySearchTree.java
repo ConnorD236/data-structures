@@ -12,7 +12,7 @@ public class BinarySearchTree
     */
     public BinarySearchTree()
     {   
-        
+        this.root = null;
     }
     
     /**
@@ -21,7 +21,15 @@ public class BinarySearchTree
     */
     public void add(Comparable obj) 
     {   
-        
+        Node newNode = new Node();
+        newNode.data = obj;
+        newNode.left = null;
+        newNode.right = null;
+
+        if(this.root == null)
+            root = newNode;
+        else
+            this.root.addNode(newNode);
     }
 
     /**
@@ -31,6 +39,17 @@ public class BinarySearchTree
     */
     public boolean find(Comparable obj)
     {
+        Node current = this.root;
+        while(current != null) {
+            int diff = obj.compareTo(current.data);
+            if(diff == 0) {
+                return true;
+            }
+            else if(diff < 0)
+                current = current.left;
+            else
+                current = current.right;
+        }
         return false;
     }
     
@@ -41,7 +60,19 @@ public class BinarySearchTree
     */
     public void remove(Comparable obj)
     {
-        
+        Node toBeRemoved = this.root;
+        boolean found = false;
+
+        while(!found && toBeRemoved != null) {
+            int diff = obj.compareTo(toBeRemoved.data);
+            if(diff == 0)
+                found = true;
+            else if(diff < 0)
+                toBeRemoved = toBeRemoved.right;
+        }
+
+        if(!found)
+            return;
     }
     
     /**
@@ -67,7 +98,10 @@ public class BinarySearchTree
     */
     static class Node
     {   
-        
+        //A BinarySearchTree MUST be made of Comparable objects, to compare them to determine position.
+        public Comparable data;
+        public Node left;
+        public Node right;
 
         /**
             Inserts a new node as a descendant of this node.
@@ -75,7 +109,37 @@ public class BinarySearchTree
         */
         public void addNode(Node newNode)
         {   
-            
+            //If diff < 0, newNode is to the left of this node because it is smaller.
+            //If diff > 0, newNode is to the right of this node because it is larger.
+            int diff = newNode.data.compareTo(data);
+
+            /*
+            Node current;
+            if(diff < 0)
+                current = left;
+            else if(diff > 0)
+                current = right;
+            else //if diff = 0 (data is the same) -> ignores, no duplicates in BinarySearchTree
+                return;
+
+            if(current == null)
+                current = newNode;
+            else
+                current.addNode(newNode);
+            */
+
+            if(diff < 0) {
+                if(left == null)
+                    left = newNode;
+                else
+                    left.addNode(newNode);
+            }
+            else if(diff > 0){
+                if(right == null)
+                    right = newNode;
+                else
+                    right.addNode(newNode);
+            }
         }
     }
 }

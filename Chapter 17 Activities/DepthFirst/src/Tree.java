@@ -1,16 +1,14 @@
-import java.util.List;
+import java.util.*;
 import java.util.ArrayList;
 
 /**
-    Add a method void depthFirst(Visitor v) to the Tree class of
-    Section 17.4 (below).
-    Keep visiting until the visit method returns false.
+    A tree in which each node has an arbitrary number of children.
 */
 public class Tree
 {
     private Node root;
 
-    class Node
+    static class Node
     {
         public Object data;
         public List<Node> children;
@@ -20,19 +18,13 @@ public class Tree
             @return the number of nodes in the subtree
         */
         public int size()
-        {
-            int sum = 0;
-            for (Node child : children) { sum = sum + child.size(); }
-            return 1 + sum;
+        {   
+            int total = 0;
+            for (Node child : this.children) {
+                total += child.size();
+            }
+            return total + 1;
         }
-    }
-
-    /**
-        Constructs an empty tree.
-    */
-    public Tree()
-    {
-        root = null;
     }
 
     /**
@@ -41,9 +33,9 @@ public class Tree
     */
     public Tree(Object rootData)
     {
-        root = new Node();
-        root.data = rootData;
-        root.children = new ArrayList<>();
+        this.root = new Node();
+        this.root.data = rootData;
+        this.root.children = new ArrayList<>();
     }
 
     /**
@@ -51,18 +43,91 @@ public class Tree
     */
     public void addSubtree(Tree subtree)
     {
-        root.children.add(subtree.root);
+        this.root.children.add(subtree.root);
     }
 
     /**
         Computes the size of this tree.
         @return the number of nodes in the tree
     */
-    public int size()
+    public int size() 
     {
-        if (root == null) { return 0; }
-        else { return root.size(); }
+        return this.root.size();
     }
 
     // Additional methods will be added in later sections.
+    /**
+     * A visitor method is called for each visited node
+     * during a tree traversal.
+     */
+    
+    /**
+     * Traverse this tree in preorder
+     * @param v: the visitor to be invoked on each node
+     */
+    public void preorder(Visitor v){
+        Tree.preorder(this.root, v);
+    }
+    /**
+     * Traverse the tree with a given root in preorder
+     * @param n: the root of the tree to traverse
+     * @param v: the visitor to be invoked on each node
+     */
+    private static void preorder(Node n, Visitor v){
+        if (n == null){
+            return;
+        }
+        v.visit(n.data);
+
+        for (Node child :n.children){
+            preorder(child, v);
+        }
+    }
+    /*
+     * Traverse this tree in postorder
+     * @param v: the visitor to be invoked on each node
+     */
+    public void postorder(Visitor v){
+        Tree.postorder(this.root, v);
+    }
+    /*
+     * Traverse the tree with a given root in postorder
+     * @param n: the root of the tree to traverse
+     * @param v: the visitor to be invoked on each node
+     */
+    public static void postorder(Node n, Visitor v){
+        if (n == null) {
+            return;
+        }
+        for (Node child : n.children){
+            postorder(child, v);
+        }
+        v.visit(n.data);
+    }
+    /*
+     * Traverse this tree in depth-first order
+     * @param v: the visitor to be invoked on each node
+     */
+    public void depthFirst(Visitor v){
+        Tree.depthFirst(this.root, v);
+    }
+    /*
+     * Traverse the tree with a given root in depth-first order
+     * @param n: the root of the tree to traverse
+     * @param v: the visitor to be invoked on each node
+     */
+    public static void depthFirst(Node n, Visitor v){
+        Stack<Node> stack = new Stack<>();
+        stack.push(n); 
+        while (stack.size() > 0){
+            Node current = stack.pop();
+            v.visit(current.data);
+            // Push children in reverse order to process leftmost child first
+            for (int i = current.children.size() - 1; i >= 0; i--) {
+                stack.push(current.children.get(i));
+            }
+        }
+        
+    }
+
 }
